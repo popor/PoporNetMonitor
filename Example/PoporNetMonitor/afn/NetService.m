@@ -10,15 +10,14 @@
 #import <AFNetworking/AFNetworking.h>
 #import "AFNServerConfig.h"
 #import <PoporNetRecord/PoporNetRecord.h>
+#import <PoporFoundation/FunctionPrefix.h>
+
+
+static NSString * MethodGet  = @"GET";
+static NSString * MethodPost = @"POST";
 
 //如何添加head.
 //https://www.jianshu.com/p/c741236c5c30
-
-@interface NetService ()
-
-//@property (nonatomic, strong) NSURLSessionDataTask * task;
-
-@end
 
 @implementation NetService
 
@@ -32,7 +31,7 @@
 
 - (void)postUrl:(NSString *_Nullable)urlString parameters:(NSDictionary * _Nullable)parameters success:(NetServiceFinishBlock _Nullable )success failure:(NetServiceFailureBlock _Nullable)failure monitor:(BOOL)monitor {
     
-    NSString * method = @"POST";
+    NSString * method = MethodPost;
     AFHTTPSessionManager *manager = [AFNServerConfig createManager];
     __weak typeof(manager) weakManager = manager;
     
@@ -45,7 +44,7 @@
 
 - (void)getUrl:(NSString *_Nullable)urlString parameters:(NSDictionary * _Nullable)parameters success:(NetServiceFinishBlock _Nullable )success failure:(NetServiceFailureBlock _Nullable)failure monitor:(BOOL)monitor {
     
-    NSString * method = @"GET";
+    NSString * method = MethodGet;
     AFHTTPSessionManager *manager = [AFNServerConfig createManager];
     __weak typeof(manager) weakManager = manager;
     
@@ -59,18 +58,16 @@
 + (void)successManager:(AFHTTPSessionManager *)manager url:(NSString *)urlString method:(NSString *)method parameters:(NSDictionary * _Nullable)parameters task:(NSURLSessionDataTask * _Nullable)task response:(id _Nullable) responseObject success:(NetServiceFinishBlock _Nullable )success monitor:(BOOL)monitor {
     [manager invalidateSessionCancelingTasks:YES];
     
-    //NSString * res = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary *dic;
         if (responseObject) {
             dic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:nil];
         }
-        if (monitor) {
-            [PoporNetRecord addUrl:urlString method:method head:manager.requestSerializer.HTTPRequestHeaders request:parameters response:dic];
-        }
-        
         if (success) {
             success(urlString, responseObject, dic);
+        }
+        if (IsDebugVersion && monitor) {
+            [PoporNetRecord addUrl:task.currentRequest.URL.absoluteString method:method head:manager.requestSerializer.HTTPRequestHeaders request:parameters response:dic];
         }
     });
 }
@@ -82,8 +79,8 @@
         if (failure) {
             failure(task, error);
         }
-        if (monitor) {
-            [PoporNetRecord addUrl:urlString method:method head:manager.requestSerializer.HTTPRequestHeaders request:parameters response:@{@"异常":error.localizedDescription}];
+        if (IsDebugVersion && monitor) {
+            [PoporNetRecord addUrl:task.currentRequest.URL.absoluteString method:method head:manager.requestSerializer.HTTPRequestHeaders request:parameters response:@{@"异常":error.localizedDescription}];
         }
     });
 }

@@ -42,9 +42,10 @@ return instance;\
 
 + (AFHTTPSessionManager *)createManager {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+
+    manager.requestSerializer     = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer    = [AFHTTPResponseSerializer serializer];
     
-    manager.requestSerializer =  [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil]; // 不然不支持www.baidu.com.
     
     [manager.requestSerializer setValue:@"iOS" forHTTPHeaderField:@"system"];

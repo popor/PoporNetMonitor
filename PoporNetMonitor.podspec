@@ -7,25 +7,24 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'PoporNetMonitor'
-  s.version          = '0.0.1'
-  s.summary          = 'A short description of PoporNetMonitor.'
-  
-  s.homepage         = 'https://github.com/popor/PoporNetMonitor'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'popor' => '908891024@qq.com' }
-  s.source           = { :git => 'https://github.com/popor/PoporNetMonitor.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
-  s.ios.deployment_target = '8.0'
-
-  s.source_files = 'PoporNetMonitor/Classes/**/*'
-  
-  
-  #  s.subspec 'NetMonitorList' do |ss|
-  #      ss.source_files = 'PoporUI/Classes/NetMonitorList/*.{h,m}'
-  #  end
-  
-
+    s.name             = 'PoporNetMonitor'
+    s.version          = '0.0.1'
+    s.summary          = '主体功能灵感来自:https://github.com/HDB-Li/LLDebugTool, 只开启了debug模式,release模式不抓取网络请求'
+    
+    s.homepage         = 'https://github.com/popor/PoporNetMonitor'
+    # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+    s.license          = { :type => 'MIT', :file => 'LICENSE' }
+    s.author           = { 'popor' => '908891024@qq.com' }
+    s.source           = { :git => 'https://github.com/popor/PoporNetMonitor.git', :tag => s.version.to_s }
+    # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+    
+    s.ios.deployment_target = '8.0'
+    
+    s.source_files = 'PoporNetMonitor/Classes/*.{h,m}'
+    
+    s.dependency 'PoporFoundation/prefix'
+    s.dependency 'PoporFoundation/NSData'
+    
+    s.dependency 'PoporNetRecord'
+    
 end

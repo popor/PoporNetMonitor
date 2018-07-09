@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Masonry (1.1.0)
+  - PoporFoundation/NSData (0.0.10)
   - PoporFoundation/NSDate (0.0.10):
     - PoporFoundation/NSString
   - PoporFoundation/NSDictionary (0.0.10):
@@ -26,7 +27,10 @@ PODS:
   - PoporFoundation/prefix (0.0.10):
     - PoporFoundation/PrefixOs
   - PoporFoundation/PrefixOs (0.0.10)
-  - PoporNetMonitor (0.0.1)
+  - PoporNetMonitor (0.0.1):
+    - PoporFoundation/NSData
+    - PoporFoundation/prefix
+    - PoporNetRecord
   - PoporNetRecord (0.0.6):
     - Masonry
     - PoporFoundation/NSDate
@@ -66,6 +70,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - PoporFoundation/NSData
   - PoporNetMonitor (from `../`)
   - PoporNetRecord
 
@@ -85,10 +90,10 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   PoporFoundation: 48521112e62ce24c27b228b89ae8ba8089599e6e
-  PoporNetMonitor: e1305b1a16e9fcc9fa8cf36540d4ab43f6af9dd3
+  PoporNetMonitor: 2ae6e99fc7cd5e264060f0c35b943207ceed28de
   PoporNetRecord: f93ce518abb0fc6d9ccfdd9e5bed63f0924c3ebd
   PoporUI: 22d654ee371bfdb02d5529084f20ccca2dd286e3
 
-PODFILE CHECKSUM: 9a15bd4e3a311be785fe6e3b21238744689aacac
+PODFILE CHECKSUM: 3d407e85daa718c9ee5230af90a3b167fd4a9145
 
 COCOAPODS: 1.5.3

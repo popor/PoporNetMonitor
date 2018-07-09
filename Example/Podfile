@@ -9,6 +9,8 @@ target 'PoporNetMonitor_Example' do
   
   pod 'PoporNetRecord'
   
+  pod 'PoporFoundation/NSData'
+  
   pod 'AFNetworking'
   
 end

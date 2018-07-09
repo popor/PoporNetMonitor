@@ -19,6 +19,8 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod 'PoporNetMonitor'
 ```
+主体功能灵感来自:https://github.com/HDB-Li/LLDebugTool
+只开启了debug模式,release模式不抓取网络请求
 
 ## Author
 

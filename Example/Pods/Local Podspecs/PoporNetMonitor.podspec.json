@@ -17,5 +17,16 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "PoporNetMonitor/Classes/**/*"
+  "source_files": "PoporNetMonitor/Classes/*.{h,m}",
+  "dependencies": {
+    "PoporFoundation/prefix": [
+
+    ],
+    "PoporFoundation/NSData": [
+
+    ],
+    "PoporNetRecord": [
+
+    ]
+  }
 }
