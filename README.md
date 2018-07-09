@@ -8,6 +8,9 @@
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
+可以设定是否抓取app网络请求,不再需要电脑抓包工作,方便测试使用.
+[PoporNetMonitor share].monitor = YES;
+
 
 ## Requirements
 
