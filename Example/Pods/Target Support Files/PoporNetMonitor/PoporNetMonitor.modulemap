@@ -1,0 +1,6 @@
+framework module PoporNetMonitor {
+  umbrella header "PoporNetMonitor-umbrella.h"
+
+  export *
+  module * { export * }
+}

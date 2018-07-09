@@ -1,0 +1,21 @@
+{
+  "name": "PoporNetMonitor",
+  "version": "0.0.1",
+  "summary": "A short description of PoporNetMonitor.",
+  "homepage": "https://github.com/popor/PoporNetMonitor",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "popor": "908891024@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/popor/PoporNetMonitor.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "PoporNetMonitor/Classes/**/*"
+}

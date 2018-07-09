@@ -1,0 +1,94 @@
+PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - Masonry (1.1.0)
+  - PoporFoundation/NSDate (0.0.10):
+    - PoporFoundation/NSString
+  - PoporFoundation/NSDictionary (0.0.10):
+    - PoporFoundation/NSObject
+    - PoporFoundation/prefix
+  - PoporFoundation/NSObject (0.0.10)
+  - PoporFoundation/NSString (0.0.10):
+    - PoporFoundation/PrefixOs
+  - PoporFoundation/prefix (0.0.10):
+    - PoporFoundation/PrefixOs
+  - PoporFoundation/PrefixOs (0.0.10)
+  - PoporNetMonitor (0.0.1)
+  - PoporNetRecord (0.0.6):
+    - Masonry
+    - PoporFoundation/NSDate
+    - PoporFoundation/NSDictionary
+    - PoporFoundation/NSString
+    - PoporNetRecord/DetailVC (= 0.0.6)
+    - PoporNetRecord/entity (= 0.0.6)
+    - PoporNetRecord/ListVC (= 0.0.6)
+    - PoporUI/IToast
+    - PoporUI/UIView
+  - PoporNetRecord/DetailVC (0.0.6):
+    - Masonry
+    - PoporFoundation/NSDate
+    - PoporFoundation/NSDictionary
+    - PoporFoundation/NSString
+    - PoporUI/IToast
+    - PoporUI/UIView
+  - PoporNetRecord/entity (0.0.6):
+    - Masonry
+    - PoporFoundation/NSDate
+    - PoporFoundation/NSDictionary
+    - PoporFoundation/NSString
+    - PoporUI/IToast
+    - PoporUI/UIView
+  - PoporNetRecord/ListVC (0.0.6):
+    - Masonry
+    - PoporFoundation/NSDate
+    - PoporFoundation/NSDictionary
+    - PoporFoundation/NSString
+    - PoporNetRecord/DetailVC
+    - PoporNetRecord/entity
+    - PoporUI/IToast
+    - PoporUI/UIView
+  - PoporUI/IToast (0.0.7):
+    - PoporFoundation/NSString
+  - PoporUI/UIView (0.0.7)
+
+DEPENDENCIES:
+  - AFNetworking
+  - PoporNetMonitor (from `../`)
+  - PoporNetRecord
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - Masonry
+    - PoporFoundation
+    - PoporNetRecord
+    - PoporUI
+
+EXTERNAL SOURCES:
+  PoporNetMonitor:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  PoporFoundation: 48521112e62ce24c27b228b89ae8ba8089599e6e
+  PoporNetMonitor: e1305b1a16e9fcc9fa8cf36540d4ab43f6af9dd3
+  PoporNetRecord: f93ce518abb0fc6d9ccfdd9e5bed63f0924c3ebd
+  PoporUI: 22d654ee371bfdb02d5529084f20ccca2dd286e3
+
+PODFILE CHECKSUM: 9a15bd4e3a311be785fe6e3b21238744689aacac
+
+COCOAPODS: 1.5.3

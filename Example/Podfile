@@ -1,0 +1,14 @@
+use_frameworks!
+
+target 'PoporNetMonitor_Example' do
+  pod 'PoporNetMonitor', :path => '../'
+
+  target 'PoporNetMonitor_Tests' do
+    inherit! :search_paths
+  end
+  
+  pod 'PoporNetRecord'
+  
+  pod 'AFNetworking'
+  
+end
