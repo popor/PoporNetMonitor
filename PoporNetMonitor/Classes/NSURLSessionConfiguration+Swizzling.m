@@ -10,7 +10,7 @@
 #import "NSURLSessionConfiguration+Swizzling.h"
 
 #import <objc/runtime.h>
-#import <PoporFoundation/FunctionPrefix.h>
+#import <PoporFoundation/PrefixFun.h>
 
 #import "PoporUrlProtocol.h"
 

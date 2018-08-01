@@ -10,7 +10,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "AFNServerConfig.h"
 #import <PoporNetRecord/PoporNetRecord.h>
-#import <PoporFoundation/FunctionPrefix.h>
+#import <PoporFoundation/PrefixFun.h>
 
 
 static NSString * MethodGet  = @"GET";
