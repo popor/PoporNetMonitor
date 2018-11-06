@@ -7,16 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <PoporFoundation/PrefixBlock.h>
+#import "PoporNetRecordConfig.h"
 
 @interface PoporNetRecord : NSObject
 
-@property (nonatomic        ) CGFloat   activeAlpha;
-@property (nonatomic        ) CGFloat   normalAlpha;
-@property (nonatomic        ) NSInteger recordMaxNum;
-
-@property (nonatomic, copy  ) BlockPVoid freshBlock;
-
+@property (nonatomic, weak  ) PoporNetRecordConfig * config;
 + (instancetype)share;
 
 + (void)addUrl:(NSString *)urlString method:(NSString *)method head:(NSDictionary *)headDic request:(NSDictionary *)requestDic response:(NSDictionary *)responseDic;
