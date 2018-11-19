@@ -13,4 +13,13 @@
 
 @interface PoporUrlProtocol : NSURLProtocol
 
+@property (nonatomic, strong) NSURLSessionDataTask *dataTask;
+@property (nonatomic, strong) NSURLSession         *session;
+@property (nonatomic, strong) NSURLResponse        *response;
+@property (nonatomic, strong) NSMutableData        *data;
+@property (nonatomic, strong) NSDate               *startDate;
+@property (nonatomic, strong) NSError              *error;
+
+- (void)netMonitorRecordDefaultEvent;
+
 @end

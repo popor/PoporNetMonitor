@@ -35,7 +35,7 @@ PODS:
   - PoporFoundation/PrefixCore (0.0.25):
     - PoporFoundation/PrefixOs
   - PoporFoundation/PrefixOs (0.0.25)
-  - PoporNetMonitor (0.0.3):
+  - PoporNetMonitor (0.0.04):
     - PoporFoundation/NSData
     - PoporFoundation/PrefixCore
     - PoporNetRecord
@@ -108,7 +108,7 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   PoporAlertBubbleView: 833b1fdbff7d6ffdb721e8c133271b5459df8f86
   PoporFoundation: bca1071cd750888f2dac9e5f5bb0857d4f76e92b
-  PoporNetMonitor: 6bfd047d3a6f1cd401a3664166b00a5a881ea751
+  PoporNetMonitor: ca8271c51b341e4e9a4c71dfab36c6f1123e2030
   PoporNetRecord: c4b3ef9bdbc8d2a669687cd63c317bd7b2366abd
   PoporUI: b4c780eec637e1123bdc9d6a55d0a555968c8773
 

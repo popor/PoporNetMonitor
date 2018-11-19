@@ -17,14 +17,6 @@ static NSString *const HTTPHandledIdentifier = @"HttpHandleIdentifier";
 
 @interface PoporUrlProtocol () <NSURLSessionDataDelegate>
 
-@property (nonatomic, strong) NSURLSessionDataTask *dataTask;
-@property (nonatomic, strong) NSURLSession         *session;
-@property (nonatomic, strong) NSURLResponse        *response;
-@property (nonatomic, strong) NSMutableData        *data;
-@property (nonatomic, strong) NSDate               *startDate;
-@property (nonatomic, strong) NSError              *error;
-
-
 @end
 
 @implementation PoporUrlProtocol
@@ -67,44 +59,24 @@ static NSString *const HTTPHandledIdentifier = @"HttpHandleIdentifier";
     NSLog(@"%s", __func__);
     
     [self.dataTask cancel];
-    self.dataTask           = nil;
+    self.dataTask = nil;
     
     if ([PoporNetMonitor share].isMonitor) {
-        
-        if (self.data) {
-            [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:[self.data toDic]];
-            
+        if ([PoporNetMonitor share].recordCustomBlock) {
+            [PoporNetMonitor share].recordCustomBlock(self);
         }else{
-            [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:@{@"异常":@"null"}];
+            [self netMonitorRecordDefaultEvent];
         }
-        
     }
-    
-    //    LLNetworkModel *model = [[LLNetworkModel alloc] init];
-    //    model.startDate = [[LLTool sharedTool] stringFromDate:self.startDate];
-    //    model.url = self.request.URL;
-    //    model.method = self.request.HTTPMethod;
-    //    model.headerFields = self.request.allHTTPHeaderFields;
-    //    model.mineType = self.response.MIMEType;
-    //    if (self.request.HTTPBody) {
-    //        model.requestBody = [LLTool prettyJSONStringFromData:self.request.HTTPBody];
-    //    } else if (self.request.HTTPBodyStream) {
-    //        NSData* data = [self dataFromInputStream:self.request.HTTPBodyStream];
-    //        model.requestBody = [LLTool prettyJSONStringFromData:data];
-    //    }
-    //    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)self.response;
-    //    model.statusCode = [NSString stringWithFormat:@"%d",(int)httpResponse.statusCode];
-    //    model.responseData = self.data;
-    //    if (self.response.MIMEType) {
-    //        model.isImage = [self.response.MIMEType rangeOfString:@"image"].location != NSNotFound;
-    //    }
-    //    NSString *absoluteString = self.request.URL.absoluteString.lowercaseString;
-    //    if ([absoluteString hasSuffix:@".jpg"] || [absoluteString hasSuffix:@".jpeg"] || [absoluteString hasSuffix:@".png"] || [absoluteString hasSuffix:@".gif"]) {
-    //        model.isImage = YES;
-    //    }
-    //    model.totalDuration = [NSString stringWithFormat:@"%fs",[[NSDate date] timeIntervalSinceDate:self.startDate]];
-    //    model.error = self.error;
-    //    [[LLStorageManager sharedManager] saveNetworkModel:model];
+}
+
+- (void)netMonitorRecordDefaultEvent {
+    if (self.data) {
+        [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:[self.data toDic]];
+        
+    }else{
+        [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:@{@"异常":@"null"}];
+    }
 }
 
 #pragma mark - NSURLSessionTaskDelegate

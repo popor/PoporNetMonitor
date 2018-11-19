@@ -10,9 +10,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class PoporUrlProtocol;
+
+typedef void(^PoporNetMonitorRecordCustomBlock)(PoporUrlProtocol * urlProtocol);
+
 @interface PoporNetMonitor : NSObject
 
 @property (nonatomic, getter=isMonitor) BOOL monitor;
+@property (nonatomic, copy  ) PoporNetMonitorRecordCustomBlock recordCustomBlock;
 
 + (instancetype)share;
 
