@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'PoporNetMonitor'
-    s.version          = '0.0.04'
+    s.version          = '0.0.05'
     s.summary          = '主体功能灵感来自:https://github.com/HDB-Li/LLDebugTool, 只开启了debug模式,release模式不抓取网络请求'
     
     s.homepage         = 'https://github.com/popor/PoporNetMonitor'

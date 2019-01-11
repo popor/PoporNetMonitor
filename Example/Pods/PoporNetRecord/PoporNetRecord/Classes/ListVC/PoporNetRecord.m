@@ -20,17 +20,6 @@
 
 @interface PoporNetRecord () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, weak  ) UIWindow * window;
-@property (nonatomic, strong) UIButton * ballBT;
-
-@property (nonatomic        ) CGFloat sBallHideWidth;
-@property (nonatomic        ) CGFloat sBallWidth;
-@property (nonatomic, strong) NSMutableArray<PnrVCEntity *> * infoArray;
-
-@property (nonatomic, weak  ) UINavigationController * nc;
-
-@property (nonatomic, getter=isShow) BOOL show;
-
 @end
 
 @implementation PoporNetRecord
@@ -56,7 +45,7 @@
     return instance;
 }
 
-+ (void)addUrl:(NSString *)urlString method:(NSString *)method head:(NSDictionary *)headDic request:(NSDictionary *)requestDic response:(NSDictionary *)responseDic {
++ (void)addUrl:(NSString *)urlString method:(NSString *)method head:(id)headValue request:(id)requestValue response:(id)responseValue {
     if ([PoporNetRecord share].isShow) {
         PnrVCEntity * entity = [PnrVCEntity new];
         entity.url = urlString;
@@ -68,10 +57,11 @@
             }
         }
         
-        entity.method      = method;
-        entity.headDic     = headDic;
-        entity.requestDic  = requestDic;
-        entity.responseDic = responseDic;
+        entity.method        = method;
+        entity.headValue     = headValue;
+        entity.requesValue   = requestValue;
+        entity.responseValue = responseValue;
+        
         entity.time = [NSDate stringFromDate:[NSDate date] formatter:@"HH:mm:ss"];
         if ([PoporNetRecord share].infoArray.count >= [PoporNetRecord share].config.recordMaxNum) {
             [[PoporNetRecord share].infoArray removeLastObject];
@@ -127,9 +117,14 @@
         if (weakSelf.isShow) {
             weakSelf.ballBT.hidden = NO;
         }
+        if (weakSelf.closeBlock) {
+            weakSelf.closeBlock();
+        }
     };
     UIViewController * vc = [PnrListVCRouter vcWithDic:@{@"title":@"网络请求", @"weakInfoArray":self.infoArray, @"closeBlock":closeBlock}];
     UINavigationController * oneNC = [[UINavigationController alloc] initWithRootViewController:vc];
+    oneNC.navigationBar.translucent = NO;
+    
     if (self.config.presentNCBlock) {
         self.config.presentNCBlock(oneNC);
     }
@@ -141,6 +136,10 @@
     }
     oneNC.interactivePopGestureRecognizer.delegate = self;
     
+    // 打开block事件
+    if (self.openBlock) {
+        self.openBlock();
+    }
     self.nc = oneNC;
 }
 
@@ -269,5 +268,10 @@
     }
     
     
+}
+// 把ballBT提到最高层.
++ (void)bringFrontBallBT {
+    PoporNetRecord * pnr = [PoporNetRecord share];
+    [pnr.window bringSubviewToFront:pnr.ballBT];
 }
 @end

@@ -72,7 +72,17 @@ static NSString *const HTTPHandledIdentifier = @"HttpHandleIdentifier";
 
 - (void)netMonitorRecordDefaultEvent {
     if (self.data) {
-        [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:[self.data toDic]];
+        NSDictionary * dic = [self.data toDic];
+        if (dic) {
+            [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:dic];
+        }else{
+            NSString * str = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+            if (str) {
+                [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:str];
+            }else{
+                [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:nil];
+            }
+        }
         
     }else{
         [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:@{@"异常":@"null"}];
