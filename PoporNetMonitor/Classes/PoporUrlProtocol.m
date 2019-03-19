@@ -60,32 +60,33 @@ static NSString *const HTTPHandledIdentifier = @"HttpHandleIdentifier";
     
     [self.dataTask cancel];
     self.dataTask = nil;
-    
-    if ([PoporNetMonitor share].isMonitor) {
-        if ([PoporNetMonitor share].recordCustomBlock) {
-            [PoporNetMonitor share].recordCustomBlock(self);
-        }else{
-            [self netMonitorRecordDefaultEvent];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([PoporNetMonitor share].isMonitor) {
+            if ([PoporNetMonitor share].recordCustomBlock) {
+                [PoporNetMonitor share].recordCustomBlock(self);
+            }else{
+                [self netMonitorRecordDefaultEvent];
+            }
         }
-    }
+    });
 }
 
 - (void)netMonitorRecordDefaultEvent {
     if (self.data) {
         NSDictionary * dic = [self.data toDic];
         if (dic) {
-            [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:dic];
+            [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields parameter:[self.request.HTTPBody toDic] response:dic];
         }else{
             NSString * str = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
             if (str) {
-                [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:str];
+                [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields parameter:[self.request.HTTPBody toDic] response:str];
             }else{
-                [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:nil];
+                [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields parameter:[self.request.HTTPBody toDic] response:nil];
             }
         }
         
     }else{
-        [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields request:[self.request.HTTPBody toDic] response:@{@"异常":@"null"}];
+        [PoporNetRecord addUrl:self.request.URL.absoluteString method:self.request.HTTPMethod head:self.request.allHTTPHeaderFields parameter:[self.request.HTTPBody toDic] response:@{@"异常":@"null"}];
     }
 }
 

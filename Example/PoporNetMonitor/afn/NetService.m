@@ -67,7 +67,7 @@ static NSString * MethodPost = @"POST";
             success(urlString, responseObject, dic);
         }
         if (IsDebugVersion && monitor) {
-            [PoporNetRecord addUrl:task.currentRequest.URL.absoluteString method:method head:manager.requestSerializer.HTTPRequestHeaders request:parameters response:dic];
+            [PoporNetRecord addUrl:task.currentRequest.URL.absoluteString method:method head:manager.requestSerializer.HTTPRequestHeaders parameter:parameters response:dic];
         }
     });
 }
@@ -80,7 +80,7 @@ static NSString * MethodPost = @"POST";
             failure(task, error);
         }
         if (IsDebugVersion && monitor) {
-            [PoporNetRecord addUrl:task.currentRequest.URL.absoluteString method:method head:manager.requestSerializer.HTTPRequestHeaders request:parameters response:@{@"异常":error.localizedDescription}];
+            [PoporNetRecord addUrl:task.currentRequest.URL.absoluteString method:method head:manager.requestSerializer.HTTPRequestHeaders parameter:parameters response:@{@"异常":error.localizedDescription}];
         }
     });
 }
