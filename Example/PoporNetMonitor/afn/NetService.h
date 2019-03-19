@@ -8,22 +8,37 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+#import <PoporAFN/PoporAFN.h>
 
-typedef void(^NetServiceFinishBlock)(NSString *url, NSData *data, NSDictionary *dic);
-typedef void(^NetServiceFailureBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error);
+NS_ASSUME_NONNULL_BEGIN
 
 #define NetServiceTool [[NetService alloc] init]
 
 @interface NetService : NSObject
 
-- (void)postUrl:(NSString *_Nullable)urlString parameters:(NSDictionary * _Nullable)parameters success:(NetServiceFinishBlock _Nullable )success failure:(NetServiceFailureBlock _Nullable)failure;
++ (void)postUrl:(NSString *_Nullable)urlString
+     parameters:(NSDictionary * _Nullable)parameters
+        success:(PoporAFNFinishBlock _Nullable )success
+        failure:(PoporAFNFailureBlock _Nullable)failure;
 
-- (void)getUrl:(NSString *_Nullable)urlString parameters:(NSDictionary * _Nullable)parameters success:(NetServiceFinishBlock _Nullable )success failure:(NetServiceFailureBlock _Nullable)failure;
++ (void)postUrl:(NSString *_Nullable)urlString
+          title:(NSString *_Nullable)title
+     afnManager:(AFHTTPSessionManager * _Nullable)manager
+     parameters:(NSDictionary * _Nullable)parameters
+        success:(PoporAFNFinishBlock _Nullable )success
+        failure:(PoporAFNFailureBlock _Nullable)failure;
 
-- (void)postUrl:(NSString *_Nullable)urlString parameters:(NSDictionary * _Nullable)parameters success:(NetServiceFinishBlock _Nullable )success failure:(NetServiceFailureBlock _Nullable)failure monitor:(BOOL)monitor;
++ (void)getUrl:(NSString *_Nullable)urlString
+    parameters:(NSDictionary * _Nullable)parameters
+       success:(PoporAFNFinishBlock _Nullable )success
+       failure:(PoporAFNFailureBlock _Nullable)failure;
 
-- (void)getUrl:(NSString *_Nullable)urlString parameters:(NSDictionary * _Nullable)parameters success:(NetServiceFinishBlock _Nullable )success failure:(NetServiceFailureBlock _Nullable)failure monitor:(BOOL)monitor;
++ (void)getUrl:(NSString *_Nullable)urlString
+         title:(NSString *_Nullable)title
+    afnManager:(AFHTTPSessionManager * _Nullable)manager
+    parameters:(NSDictionary * _Nullable)parameters
+       success:(PoporAFNFinishBlock _Nullable )success
+       failure:(PoporAFNFailureBlock _Nullable)failure;
 
 @end
 

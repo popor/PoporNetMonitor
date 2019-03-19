@@ -21,43 +21,40 @@ static NSString *const HTTPHandledIdentifier = @"HttpHandleIdentifier";
 
 @implementation PoporUrlProtocol
 
-+ (BOOL)canInitWithRequest:(NSURLRequest *)request {
++ (BOOL)canInitWithRequest:(NSURLRequest *)request
+{
     if (![request.URL.scheme isEqualToString:@"http"] &&
         ![request.URL.scheme isEqualToString:@"https"]) {
         return NO;
     }
-    
     if ([NSURLProtocol propertyForKey:HTTPHandledIdentifier inRequest:request] ) {
         return NO;
     }
-    
     return YES;
 }
 
-+ (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
-    
++ (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
+{
     NSMutableURLRequest *mutableReqeust = [request mutableCopy];
-    [NSURLProtocol setProperty:@YES
-                        forKey:HTTPHandledIdentifier
-                     inRequest:mutableReqeust];
-    //    return [mutableReqeust copy];
+    [NSURLProtocol setProperty:@YES forKey:HTTPHandledIdentifier inRequest:mutableReqeust];
     return mutableReqeust;
 }
 
-
-- (void)startLoading {
-    NSLog(@"%s", __func__);
-    self.startDate                           = [NSDate date];
-    self.data                                = [NSMutableData data];
+- (void)startLoading
+{
+    //NSLog(@"%s", __func__);
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    self.session                             = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
-    self.dataTask                            = [self.session dataTaskWithRequest:self.request];
+    self.startDate = [NSDate date];
+    self.data      = [NSMutableData data];
+    
+    self.session   = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    self.dataTask  = [self.session dataTaskWithRequest:self.request];
     [self.dataTask resume];
 }
 
-- (void)stopLoading {
-    NSLog(@"%s", __func__);
-    
+- (void)stopLoading
+{
+    //NSLog(@"%s", __func__);
     [self.dataTask cancel];
     self.dataTask = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
