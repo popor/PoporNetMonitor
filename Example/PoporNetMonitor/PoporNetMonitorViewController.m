@@ -50,13 +50,13 @@
 }
 
 - (void)setPnrResubmit {
-    [PoporNetRecord setPnrBlockResubmit:^(PnrEntity *pnrEntity, NSDictionary *formDic, PnrBlockFeedback  _Nonnull blockFeedback) {
+    [PoporNetRecord setPnrBlockResubmit:^(NSDictionary * _Nonnull formDic, PnrBlockFeedback  _Nonnull blockFeedback) {
         NSString * urlStr       = formDic[@"url"];
         NSString * methodStr    = formDic[@"method"];
         NSString * headStr      = formDic[@"head"];
         NSString * parameterStr = formDic[@"parameter"];
         //NSString * extraStr     = formDic[@"extra"];
-        NSString * title = [pnrEntity.title hasPrefix:@"["] ? pnrEntity.title:[NSString stringWithFormat:@"[%@]", pnrEntity.title];
+        NSString * title        = @"-可以修改-";
         
         AFHTTPSessionManager * manager = [self managerDic:headStr.toDic];
         
@@ -86,6 +86,7 @@
             }];
         }
     } extraDic:nil];
+    
 }
 
 - (AFHTTPSessionManager *)managerDic:(NSDictionary *)dic {

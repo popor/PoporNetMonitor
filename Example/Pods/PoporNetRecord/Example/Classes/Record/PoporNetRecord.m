@@ -102,4 +102,39 @@
     [PnrWebServer share].resubmitExtraDic = dic;
 }
 
+// Log 部分
+
++ (void)addLog:(NSString *)log {
+    [self addLog:log title:@"日志"];
+}
+
++ (void)addLog:(NSString *)log title:(NSString *)title {
+    PoporNetRecord * pnr = [PoporNetRecord share];
+    if (pnr.config.isRecord) {
+        PnrEntity * entity = [PnrEntity new];
+        entity.log   = log;
+        entity.title = title;
+        entity.time  = [NSDate stringFromDate:[NSDate date] formatter:@"HH:mm:ss"];
+        
+        if (pnr.infoArray.count == 0) {
+            // 当执行了数组清空之后, h5代码清零一次.
+            [pnr.listWebH5 setString:@""];
+        }
+        [pnr.infoArray addObject:entity];
+        
+        if (pnr.config.isShowListWeb) {
+            [entity createListWebH5:pnr.infoArray.count - 1];
+            [pnr.listWebH5 insertString:entity.listWebH5 atIndex:0];
+            [[PnrWebServer share] startListServer:pnr.listWebH5];
+        }else{
+            [[PnrWebServer share] stopServer];
+        }
+        
+        // 假如在打开界面的时候收到请求,那么刷新数据
+        if (pnr.config.freshBlock) {
+            pnr.config.freshBlock();
+        }
+    }
+}
+
 @end
