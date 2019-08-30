@@ -11,11 +11,11 @@
 #import "PnrWebServer.h"
 #import "PnrConfig.h"
 
-#import "PnrDetailVCRouter.h"
+#import "PnrDetailVC.h"
 #import "PnrListVCCell.h"
-#import <PoporFoundation/NSString+format.h>
-#import <PoporUI/UIDevice+Tool.h>
-#import <PoporUI/UIImage+create.h>
+#import <PoporFoundation/NSString+pAtt.h>
+#import <PoporUI/UIDevice+pTool.h>
+#import <PoporUI/UIImage+pCreate.h>
 
 @interface PnrListVCPresenter ()
 
@@ -29,20 +29,21 @@
 
 - (id)init {
     if (self = [super init]) {
-        [self initInteractors];
         self.config = [PnrConfig share];
     }
     return self;
 }
 
-- (void)setMyView:(id<PnrListVCProtocol>)view {
-    self.view = view;
+// 初始化数据处理
+- (void)setMyInteractor:(PnrListVCInteractor *)interactor {
+    self.interactor = interactor;
+    
 }
 
-- (void)initInteractors {
-    if (!self.interactor) {
-        self.interactor = [PnrListVCInteractor new];
-    }
+// 很多操作,需要在设置了view之后才可以执行.
+- (void)setMyView:(id<PnrListVCProtocol>)view {
+    self.view = view;
+    
 }
 
 #pragma mark - VC_DataSource
@@ -238,7 +239,7 @@
                                      @"titleArray":titleArray,
                                      @"cellAttArray":cellAttArray,
                                      };
-            [weakSelf.view.vc.navigationController pushViewController:[PnrDetailVCRouter vcWithDic:vcDic] animated:YES];
+            [weakSelf.view.vc.navigationController pushViewController:[[PnrDetailVC alloc] initWithDic:vcDic] animated:YES];
         }];
        
     }else{

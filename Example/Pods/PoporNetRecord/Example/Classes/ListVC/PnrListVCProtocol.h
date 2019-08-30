@@ -8,14 +8,13 @@
 #import <Foundation/Foundation.h>
 #import "PnrEntity.h"
 #import "PnrCellEntity.h"
-#import <PoporFoundation/PrefixBlock.h>
+#import <PoporFoundation/Block+pPrefix.h>
 #import <PoporAlertBubbleView/AlertBubbleView.h>
 
 // 对外接口
 @protocol PnrListVCProtocol <NSObject>
 
 - (UIViewController *)vc;
-- (void)setMyPresent:(id)present;
 
 // self   : 自己的
 @property (nonatomic, strong) UITableView     * infoTV;

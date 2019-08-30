@@ -10,7 +10,7 @@
 #import "NSURLSessionConfiguration+Swizzling.h"
 
 #import <objc/runtime.h>
-#import <PoporFoundation/PrefixFun.h>
+#import <PoporFoundation/Fun+pPrefix.h>
 
 #import "PoporUrlProtocol.h"
 
@@ -28,7 +28,7 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (IsDebugVersion) {
+        if (PIsDebugVersion) {
             Method systemMethod = class_getClassMethod([NSURLSessionConfiguration class], @selector(defaultSessionConfiguration));
             Method zwMethod = class_getClassMethod([self class], @selector(zw_defaultSessionConfiguration));
             method_exchangeImplementations(systemMethod, zwMethod);

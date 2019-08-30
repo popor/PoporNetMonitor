@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
     s.name             = 'PoporNetMonitor'
-    s.version          = '0.0.07'
+    s.version          = '1.01'
     s.summary          = '主体功能灵感来自:https://github.com/HDB-Li/LLDebugTool, 只开启了debug模式,release模式不抓取网络请求'
     
     s.homepage         = 'https://github.com/popor/PoporNetMonitor'
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
     
     s.source_files = 'PoporNetMonitor/Classes/*.{h,m}'
     
-    s.dependency 'PoporFoundation/PrefixCore'
+    s.dependency 'PoporFoundation/Prefix'
     s.dependency 'PoporFoundation/NSData'
     
     s.dependency 'PoporNetRecord'

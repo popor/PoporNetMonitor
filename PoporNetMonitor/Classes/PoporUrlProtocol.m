@@ -9,7 +9,7 @@
 
 #import "PoporUrlProtocol.h"
 #import <PoporNetRecord/PoporNetRecord.h>
-#import <PoporFoundation/NSData+dic.h>
+#import <PoporFoundation/NSData+pDic.h>
 
 #import "PoporNetMonitor.h"
 

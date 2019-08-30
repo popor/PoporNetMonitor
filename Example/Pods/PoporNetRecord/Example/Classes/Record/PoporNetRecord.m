@@ -10,10 +10,10 @@
 #import "PnrEntity.h"
 #import "PnrWebServer.h"
 
-#import "PnrListVCRouter.h"
-#import <PoporUI/UIView+Extension.h>
-#import <PoporFoundation/PrefixFun.h>
-#import <PoporFoundation/NSDate+Tool.h>
+#import "PnrListVC.h"
+#import <PoporUI/UIView+pExtension.h>
+#import <PoporFoundation/Fun+pPrefix.h>
+#import <PoporFoundation/NSDate+pTool.h>
 #import <JSONSyntaxHighlight/JSONSyntaxHighlight.h>
 
 #define LL_SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
@@ -46,12 +46,12 @@
     return instance;
 }
 
-+ (void)addUrl:(NSString *)urlString method:(NSString *)method head:(id)headValue parameter:(id)parameterValue response:(id)responseValue
++ (void)addUrl:(NSString *)urlString method:(NSString *)method head:(id _Nullable)headValue parameter:(id _Nullable)parameterValue response:(id _Nullable)responseValue
 {
     [self addUrl:urlString title:@"--" method:method head:headValue parameter:parameterValue response:responseValue];
 }
 
-+ (void)addUrl:(NSString *)urlString title:(NSString *)title method:(NSString *)method head:(id)headValue parameter:(id)parameterValue response:(id)responseValue
++ (void)addUrl:(NSString *)urlString title:(NSString *)title method:(NSString *)method head:(id _Nullable)headValue parameter:(id _Nullable)parameterValue response:(id _Nullable)responseValue
 {
     PoporNetRecord * pnr = [PoporNetRecord share];
     if (pnr.config.isRecord) {
@@ -66,14 +66,19 @@
 
         if (urlString.length>0) {
             NSURL * url = [NSURL URLWithString:urlString];
-            entity.domain = [NSString stringWithFormat:@"%@://%@", url.scheme, url.host];
-            
-            if (entity.domain.length+1 < urlString.length) {
-                entity.path = [urlString substringFromIndex:entity.domain.length+1];
-                NSString * query = url.query;
-                if (query.length > 0) {
-                    entity.path = [entity.path substringToIndex:entity.path.length-1-query.length];
+            if (url.baseURL) {
+                entity.domain = [NSString stringWithFormat:@"%@://%@", url.scheme, url.host];
+                
+                if (entity.domain.length+1 < urlString.length) {
+                    entity.path = [urlString substringFromIndex:entity.domain.length+1];
+                    NSString * query = url.query;
+                    if (query.length > 0) {
+                        entity.path = [entity.path substringToIndex:entity.path.length-1-query.length];
+                    }
                 }
+            }else{
+                entity.domain = urlString;
+                entity.path   = @"";
             }
         }
         if (pnr.infoArray.count == 0) {
@@ -97,7 +102,7 @@
     }
 }
 
-+ (void)setPnrBlockResubmit:(PnrBlockResubmit)block extraDic:(NSDictionary *)dic {
++ (void)setPnrBlockResubmit:(PnrBlockResubmit _Nullable)block extraDic:(NSDictionary * _Nullable)dic {
     [PnrWebServer share].resubmitBlock = block;
     [PnrWebServer share].resubmitExtraDic = dic;
 }

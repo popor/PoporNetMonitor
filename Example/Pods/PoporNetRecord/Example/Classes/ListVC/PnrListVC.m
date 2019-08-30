@@ -7,11 +7,10 @@
 
 #import "PnrListVC.h"
 #import "PnrListVCPresenter.h"
-#import "PnrListVCRouter.h"
+#import "PnrListVCInteractor.h"
 
 #import "PnrConfig.h"
 #import <Masonry/Masonry.h>
-#import <PoporUI/UINavigationController+Size.h>
 
 @interface PnrListVC ()
 
@@ -69,28 +68,13 @@
 }
 
 - (void)viewDidLoad {
+    [self assembleViper];
     [super viewDidLoad];
+    
     if (!self.title) {
         self.title = @"PnrListVC";
     }
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.topMargin = [self.navigationController getTopMargin];
-    
-    if (!self.present) {
-        [PnrListVCRouter setVCPresent:self];
-    }
-    
-    if (!self.alertBubbleTVColor) {
-        self.alertBubbleTVColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-    }
-    [self addViews];
-    
-    __weak typeof(self) weakSelf = self;
-    [PnrConfig share].freshBlock = ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.infoTV reloadData];
-        });
-    };
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,19 +91,41 @@
     return self;
 }
 
-- (void)setMyPresent:(id)present {
-    self.present = present;
+#pragma mark - views
+- (void)assembleViper {
+    if (!self.present) {
+        PnrListVCPresenter * present = [PnrListVCPresenter new];
+        PnrListVCInteractor * interactor = [PnrListVCInteractor new];
+        
+        self.present = present;
+        [present setMyInteractor:interactor];
+        [present setMyView:self];
+        
+        [self addViews];
+    }
 }
 
-#pragma mark - views
 - (void)addViews {
+    if (!self.alertBubbleTVColor) {
+        self.alertBubbleTVColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    }
+    
     [self addServerBT];
     self.infoTV   = [self addTVs];
     if ([self.navigationController.viewControllers indexOfObject:self] == 0) {
         UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self.present action:@selector(closeAction)];
         self.navigationItem.leftBarButtonItems = @[item1];
     }
+    
     [self.present setRightBarAction];
+    
+    __weak typeof(self) weakSelf = self;
+    [PnrConfig share].freshBlock = ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.infoTV reloadData];
+        });
+    };
+    
 }
 
 - (UITableView *)addTVs {
@@ -189,7 +195,7 @@
     
     [self.serverBT mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(0);
-        make.top.mas_equalTo(self.navigationController.topMargin);
+        make.top.mas_equalTo(0);
         
         make.right.mas_equalTo(0);
         make.height.mas_equalTo(self.serverBT.frame.size.height);
@@ -197,7 +203,7 @@
     
     {
         UIView * lineView = [UIView new];
-        lineView.backgroundColor = ColorTV_separator;
+        lineView.backgroundColor = PRGB16(0XE3E3E3);
         
         [self.serverBT addSubview:lineView];
         

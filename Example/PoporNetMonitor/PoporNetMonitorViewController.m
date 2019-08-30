@@ -12,8 +12,8 @@
 #import <PoporNetMonitor/PoporNetMonitor.h>
 #import <PoporNetRecord/PoporNetRecord.h>
 
-#import <PoporFoundation/NSString+Tool.h>
-#import <PoporFoundation/NSDictionary+tool.h>
+#import <PoporFoundation/NSString+pTool.h>
+#import <PoporFoundation/NSDictionary+pTool.h>
 
 @interface PoporNetMonitorViewController ()
 
